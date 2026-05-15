@@ -3,6 +3,7 @@
 [![Language](https://img.shields.io/badge/C%2B%2B-23-blue.svg)](https://en.cppreference.com/w/cpp/23)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![curl](https://img.shields.io/badge/curl-libcurl-orange)](https://curl.se/)
+[![Build script](https://img.shields.io/badge/build-compile.sh-green)](compile.sh)
 
 **Never miss your laptop again.**  
 This tool scans a curated list of online compilers/IDEs for your chosen language, checks which one is alive, and opens it in your browser – instantly.
@@ -46,26 +47,53 @@ This tool scans a curated list of online compilers/IDEs for your chosen language
 
 ## Installation & build
 
-### Windows (MSYS2 – recommended)
-```bash
+### Using CMake (recommended)
+
+mkdir build && cd build
+cmake ..
+cmake --build .
+The executable will be located in build/ (or build/Debug/ on Windows with Visual Studio generator).
+
+Using the compile.sh script (alternative)
+If you prefer a simple, CMake‑free build, you can use the provided compile.sh script.
+
+Requires a bash shell (Linux, macOS, Windows with MSYS2, Git Bash, or WSL).
+
+Usage
+bash
+chmod +x compile.sh          # only on Linux/macOS – make executable
+./compile.sh src/startOnlineCompiler.cpp
+Options
+Option	Description
+-o <file>	Specify output binary name (default: same as source file name without .cpp)
+-c <compiler>	Choose compiler: g++ (default) or clang++
+-std <ver>	Set C++ standard (default: 23)
+-h, --help	Show help
+Example
+bash
+./compile.sh -o my_ocf -std=23 src/startOnlineCompiler.cpp
+After a successful build the script will ask whether you want to run the program immediately.
+
+Manual build (without CMake or script)
+Windows (MSYS2 – recommended)
+bash
 pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-curl
-g++ -std=c++23 online_compiler_finder.cpp -o ocf.exe -lcurl
+g++ -std=c++23 src/startOnlineCompiler.cpp -o ocf.exe -lcurl
 Linux (Debian/Ubuntu)
 bash
 sudo apt install libcurl4-openssl-dev g++
-g++ -std=c++23 online_compiler_finder.cpp -o ocf -lcurl
+g++ -std=c++23 src/startOnlineCompiler.cpp -o ocf -lcurl
 macOS (Homebrew)
 bash
 brew install curl
-g++ -std=c++23 online_compiler_finder.cpp -o ocf -lcurl
+g++ -std=c++23 src/startOnlineCompiler.cpp -o ocf -lcurl
 Usage
 bash
 ./ocf          # on Linux/macOS
 ocf.exe        # on Windows
 Follow the menu, pick a number, and the program will find a working online compiler.
 
-Example output:
-
+Example output
 text
 ====================================
 Select programming language:
