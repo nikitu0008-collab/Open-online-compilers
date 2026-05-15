@@ -10,7 +10,7 @@ if(NOT CURL_FOUND)
     message(FATAL_ERROR "libcurl не найден. Установите его: MSYS2: pacman -S mingw-w64-ucrt-x86_64-curl, Linux: sudo apt install libcurl4-openssl-dev, macOS: brew install curl")
 endif()
 
-add_executable(online_compiler_finder startOnlineCompiler.cpp)
+add_executable(online_compiler_finder src/startOnlineCompiler.cpp)
 
 target_link_libraries(online_compiler_finder PRIVATE CURL::libcurl)
 
